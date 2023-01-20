@@ -1,0 +1,36 @@
+.searchPageStoryRow {
+  padding: 0 16px;
+  margin-bottom: 10px;
+
+  * {
+    margin: 0;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: -5px;
+
+    a {
+      text-decoration: none;
+      color: #828282;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #828282;
+    }
+
+    span {
+      color: #828282;
+      font-size: 13px;
+      word-break: break-all;
+      font-weight: normal;
+    }
+  }
+
+  .searchPageStoryRow__comments {
+    font-size: 10.6667px;
+    color: #828282;
+  }
+}

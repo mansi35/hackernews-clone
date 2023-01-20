@@ -1,0 +1,122 @@
+.SearchHeader_search {
+  height: 60px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #ff742b;
+  height: auto;
+  padding: 4px;
+  position: relative;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+
+  a {
+    -webkit-transition: color .1s linear;
+    transition: color .1s linear;
+    color: #477dca;
+    text-decoration: none;
+  }
+
+  .SearchHeader_logo {
+    -ms-flex: 1 0 180px;
+    flex: 1 0 180px;
+    max-width: 180px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+
+    img {
+      width: 48px;
+      margin-right: 8px;
+    }
+
+    .SearchHeader_label {
+      color: #000;
+      font-size: 18px;
+      line-height: 1;
+    }
+  }
+
+  .SearchHeader_container {
+    position: relative;
+    display: inline-block;
+    width: calc(100% - 324px);
+    margin-right: 16px;
+
+    .SearchIcon {
+      position: absolute;
+      top: 9px;
+      left: 12px;
+      color: #ff742b;
+      font-size: 24px;
+      pointer-events: none;
+    }
+
+    .SearchInput {
+      border-radius: 0;
+      border: none;
+      height: 42px;
+      width: 100%;
+      box-shadow: none;
+      padding: 16px 144px 16px 54px;
+      font-weight: 300;
+      background-color: #fff;
+      color: rgba(0, 0, 0, .75);
+      outline: none;
+      font-family: inherit;
+      font-size: 100%;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .PoweredBy {
+      display: flex;
+      color: rgba(33, 36, 61, .5);
+      font-size: 12px;
+      margin-left: 8px;
+      white-space: nowrap;
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      span {
+        pointer-events: none;
+      }
+
+      a {
+        display: -ms-flexbox;
+        display: flex;
+        margin: 0 8px;
+      }
+
+      img {
+        height: 14px;
+        -webkit-transform: translateY(1px);
+        transform: translateY(1px);
+      }
+    }
+  }
+
+  .SearchHeader_settings {
+    a {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-align: center;
+      align-items: center;
+      color: #000;
+      text-decoration: none;
+    }
+
+    svg {
+      margin: 0 8px;
+    }
+  }
+}
