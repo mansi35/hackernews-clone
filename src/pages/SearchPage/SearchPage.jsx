@@ -1,11 +1,14 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import SearchPageContent from '../../components/SearchPageContent/SearchPageContent';
 import SearchPageHeader from '../../components/SearchPageHeader/SearchPageHeader';
 import './SearchPage.scss';
 
 function SearchPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [filters, setFilters] = useState({
-    query: '',
+    query: searchParams.get('query') ? searchParams.get('query') : '',
     tag: 'story',
     sortBy: 'points',
     dateRange: 'all',

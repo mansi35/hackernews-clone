@@ -19,7 +19,6 @@ function SearchPageContent({ filters, setFilters }) {
   useEffect(() => {
     if (filters.sortBy === 'points') {
       getArticlesByPopularity(pageNumber, filters).then((data) => {
-        console.log(data);
         setPosts(data.data.hits);
         setNumberOfPages(data.data.nbPages);
         setNumArticles(data.data.nbHits);
@@ -27,8 +26,8 @@ function SearchPageContent({ filters, setFilters }) {
       });
     } else {
       getArticlesByDate(pageNumber, filters).then((data) => {
-        console.log(data);
         setPosts(data.data.hits);
+        setNumberOfPages(data.data.nbPages);
         setNumArticles(data.data.nbHits);
         setReqProcessingTime(data.data.processingTimeMS / 1000);
       });
@@ -40,7 +39,6 @@ function SearchPageContent({ filters, setFilters }) {
       if (e.target.value === 'last24h') {
         const curr = new Date();
         const firstday = new Date(curr.setDate(curr.getDate() - 1)).getTime();
-        console.log(new Date(firstday));
         setFilters({ ...filters, [e.target.name]: e.target.value, timestampX: firstday / 1000 });
       } else if (e.target.value === 'pastWeek') {
         const curr = new Date();
