@@ -1,73 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import './SearchPageContent.scss';
+import { Pagination, PaginationItem } from '@mui/material';
 import SearchPageStoryRow from '../SearchPageStoryRow/SearchPageStoryRow';
+import SearchPageCommentRow from '../SearchPageCommentRow/SearchPageCommentRow';
 import {
   getArticlesByDate,
-  getArticlesByDateRangeDateSorted,
-  getArticlesByDateRangePopularitySorted,
   getArticlesByPopularity,
-  getLast24hArticlesDateSorted,
-  getLast24hArticlesPopularitySorted,
 } from '../../api';
+import './SearchPageContent.scss';
 
 function SearchPageContent({ filters, setFilters }) {
   const [posts, setPosts] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
+  const [numberOfPages, setNumberOfPages] = useState(0);
   const [numArticles, setNumArticles] = useState(0);
   const [reqProcessingTime, setReqProcessingTime] = useState(0);
 
   useEffect(() => {
-    if (filters.dateRange === 'all') {
-      if (filters.sortBy === 'points') {
-        getArticlesByPopularity(pageNumber, filters).then((data) => {
-          console.log(data);
-          setPosts(data.data.hits);
-          setNumArticles(data.data.nbPages * data.data.hitsPerPage);
-          setReqProcessingTime(data.data.processingTimeMS / 1000);
-        });
-      } else {
-        getArticlesByDate(pageNumber, filters).then((data) => {
-          console.log(data);
-          setPosts(data.data.hits);
-          setNumArticles(data.data.nbPages * data.data.hitsPerPage);
-          setReqProcessingTime(data.data.processingTimeMS / 1000);
-        });
-      }
-    } else if (filters.dateRange === 'last24h') {
-      if (filters.sortBy === 'points') {
-        console.log(filters);
-        getLast24hArticlesPopularitySorted(pageNumber, filters).then((data) => {
-          console.log(data);
-          setPosts(data.data.hits);
-          setNumArticles(data.data.nbPages * data.data.hitsPerPage);
-          setReqProcessingTime(data.data.processingTimeMS / 1000);
-        });
-      } else {
-        getLast24hArticlesDateSorted(pageNumber, filters).then((data) => {
-          console.log(data);
-          setPosts(data.data.hits);
-          setNumArticles(data.data.nbPages * data.data.hitsPerPage);
-          setReqProcessingTime(data.data.processingTimeMS / 1000);
-        });
-      }
-    } else if (filters.dateRange === 'pastWeek' || filters.dateRange === 'pastMonth' || filters.dateRange === 'pastYear') {
-      if (filters.sortBy === 'points') {
-        console.log(filters);
-        getArticlesByDateRangePopularitySorted(pageNumber, filters).then((data) => {
-          console.log(data);
-          setPosts(data.data.hits);
-          setNumArticles(data.data.nbPages * data.data.hitsPerPage);
-          setReqProcessingTime(data.data.processingTimeMS / 1000);
-        });
-      } else {
-        getArticlesByDateRangeDateSorted(pageNumber, filters).then((data) => {
-          console.log(data);
-          setPosts(data.data.hits);
-          setNumArticles(data.data.nbPages * data.data.hitsPerPage);
-          setReqProcessingTime(data.data.processingTimeMS / 1000);
-        });
-      }
+    if (filters.sortBy === 'points') {
+      getArticlesByPopularity(pageNumber, filters).then((data) => {
+        console.log(data);
+        setPosts(data.data.hits);
+        setNumberOfPages(data.data.nbPages);
+        setNumArticles(data.data.nbHits);
+        setReqProcessingTime(data.data.processingTimeMS / 1000);
+      });
+    } else {
+      getArticlesByDate(pageNumber, filters).then((data) => {
+        console.log(data);
+        setPosts(data.data.hits);
+        setNumArticles(data.data.nbHits);
+        setReqProcessingTime(data.data.processingTimeMS / 1000);
+      });
     }
   }, [pageNumber, filters]);
 
@@ -100,7 +64,9 @@ function SearchPageContent({ filters, setFilters }) {
           ...filters, [e.target.name]: e.target.value, timestampX: firstday / 1000, timestampY: lastday / 1000,
         });
       } else {
-        setFilters({ ...filters, [e.target.name]: e.target.value });
+        setFilters({
+          ...filters, [e.target.name]: e.target.value, timestampX: 0, timestampY: new Date().getTime() / 1000,
+        });
       }
     } else {
       setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -144,9 +110,29 @@ function SearchPageContent({ filters, setFilters }) {
         </div>
       </div>
       <div className="searchPageContent__results">
-        {posts.map((post, i) => <SearchPageStoryRow post={post} key={i} />)}
+        {posts.map((post, i) => {
+          if (post.parent_id === null) {
+            return (
+              <SearchPageStoryRow post={post} key={i} />
+            );
+          }
+          return (
+            <SearchPageCommentRow post={post} key={i} />
+          );
+        })}
       </div>
-      <p className="newStoriesContent__nextPage" onClick={() => setPageNumber(pageNumber + 1)}>More</p>
+      <center>
+        <Pagination
+          classes={{ ul: 'newStoriesContent__pagination' }}
+          count={numberOfPages}
+          page={Number(pageNumber + 1)}
+          variant="outlined"
+          shape="rounded"
+          renderItem={(item) => (
+            <PaginationItem {...item} component="button" onClick={() => setPageNumber(pageNumber + 1)} />
+          )}
+        />
+      </center>
     </div>
   );
 }

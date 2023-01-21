@@ -2,5 +2,51 @@
   .searchPage__content {
     width: 84.2%;
     margin: auto;
+
+    @media (max-width: 1200px) {
+      width: 100%;
+    }
+
+    .Footer {
+      margin-top: 20px;
+
+      * {
+        box-sizing: border-box;
+      }
+
+      ul {
+        padding-left: 0;
+        list-style-type: none;
+      }
+
+      a {
+        -webkit-transition: color .1s linear;
+        transition: color .1s linear;
+        color: #477dca;
+        text-decoration: none;
+        background-color: transparent;
+      }
+
+      .Footer_list {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-pack: center;
+        justify-content: center;
+        list-style-type: none;
+        padding: 4px 8px 24px;
+        margin: 0;
+
+        li {
+          padding: 4px;
+          font-size: 12px;
+        }
+
+        a {
+          color: #000;
+        }
+      }
+    }
   }
 }

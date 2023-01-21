@@ -1,6 +1,6 @@
 .searchPageContent {
   background-color: #f6f6ef;
-  min-height: 100vh;
+  padding-bottom: 30px;
 
   span {
     font-size: 12px;
@@ -40,5 +40,21 @@
         cursor: pointer;
       }
     }
+  }
+
+  .newStoriesContent__pagination {
+    margin-top: 30px;
+    justify-content: center;
+  }
+
+  .MuiPaginationItem-root.Mui-selected {
+    border: 1px solid #ff742b;
+    color: #ff742b;
+    background-color: transparent;
+  }
+
+  .MuiPaginationItem-root {
+    color: #9d9d9d;
+    font-size: 12px;
   }
 }
