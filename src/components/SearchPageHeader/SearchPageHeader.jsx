@@ -12,9 +12,9 @@ function SearchPageHeader({ filters, setFilters }) {
   return (
     <div className="SearchHeader_search">
       <span className="SearchHeader_logo">
-        <a href="https://news.ycombinator.com"><img src="//d1sz9gun5ag95e.cloudfront.net/packs/media/images/logo-hn-search-a822432b.png" alt="logo" /></a>
-        <a href="/">
-          <div className="SearchHeader_label">
+        <a href="/"><img src="//d1sz9gun5ag95e.cloudfront.net/packs/media/images/logo-hn-search-a822432b.png" alt="logo" /></a>
+        <a href="/" className="SearchHeader_label">
+          <div>
             Search
             <br />
             Hacker News
@@ -27,7 +27,7 @@ function SearchPageHeader({ filters, setFilters }) {
         </span>
         <input type="search" placeholder="Search stories by title, url or author" className="SearchInput" name="query" value={filters.query} onChange={handleChange} />
         <div className="PoweredBy">
-          <span>Search by</span>
+          <span className="searchHeader__searchByText">Search by</span>
           <a href="https://www.algolia.com/?utm_source=hn_search&amp;amp;utm_medium=link&amp;amp;utm_term=logo&amp;amp;utm_campaign=hn_algolia" title="Realtime Search Engine" target="_blank" rel="noreferrer">
             <img src="//d1sz9gun5ag95e.cloudfront.net/packs/media/images/logo-algolia-blue-35c461b6.svg" alt="Algolia Logo" />
           </a>
@@ -37,7 +37,7 @@ function SearchPageHeader({ filters, setFilters }) {
         <a href="/settings">
           <SettingsIcon />
           {' '}
-          <span>Settings</span>
+          <span className="searchHeader__settingsText">Settings</span>
         </a>
       </div>
 

@@ -2,6 +2,11 @@
   .newStoriesPage__content {
     width: 84.2%;
     margin: auto;
-    padding: 8px;
+    padding: 8px 0;
+
+    @media (max-width: 1200px) {
+      width: 100%;
+      padding: 0;
+    }
   }
 }

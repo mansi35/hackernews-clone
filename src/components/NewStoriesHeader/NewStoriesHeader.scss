@@ -23,6 +23,7 @@
       justify-content: flex-start;
       align-items: center;
       gap: 4px;
+      text-decoration: none;
 
       img {
         height: 18px;
@@ -32,6 +33,10 @@
 
       .newStoriesHeader__head {
         font-weight: bold;
+
+        @media (max-width: 768px) {
+          display: none;
+        }
       }
     }
 
