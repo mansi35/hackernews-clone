@@ -1,18 +1,33 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import moment from 'moment';
 import React from 'react';
+import parse from 'html-react-parser';
+import Highlighter from 'react-highlight-words';
 import './SearchPageStoryRow.scss';
 
-function SearchPageStoryRow({ post }) {
+function SearchPageStoryRow({ post, query }) {
   return (
     <div className="searchPageStoryRow">
-      <p>
-        {post.title}
+      <p className="searchPageStoryRow__title">
+        <Highlighter
+          highlightClassName="searchPageStoryRow__title"
+          searchWords={query.split(' ')}
+          autoEscape
+          textToHighlight={post.title}
+        />
         {' '}
         {post.url
           && (
-            <span>
+            <span className="searchPageStoryRow__titleUrl">
               (
-              <a href={post.url}>{post.url}</a>
+              <a href={post.url}>
+                <Highlighter
+                  highlightClassName="searchPageStoryRow__titleUrl"
+                  searchWords={query.split(' ')}
+                  autoEscape
+                  textToHighlight={post.url}
+                />
+              </a>
               )
             </span>
           )}
@@ -34,6 +49,11 @@ function SearchPageStoryRow({ post }) {
         {' '}
         comments
       </span>
+      {post.story_text && (
+        <p className="searchPageStoryRow__storyText">
+          {parse(post.story_text)}
+        </p>
+      )}
     </div>
   );
 }

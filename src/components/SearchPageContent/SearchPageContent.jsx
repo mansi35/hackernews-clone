@@ -77,18 +77,18 @@ function SearchPageContent({ filters, setFilters }) {
     <div className="searchPageContent">
       <div className="searchPageContent__filters">
         <div className="searchPageContent__filtersLeft">
-          <span>Search</span>
+          <span className="searchPageContent__filtersFields">Search</span>
           <select name="tag" value={filters.tag} onChange={handleChange}>
             <option value="(story,comment)">All</option>
             <option value="story">Stories</option>
             <option value="comment">Comments</option>
           </select>
-          <span>by</span>
+          <span className="searchPageContent__filtersFields">by</span>
           <select name="sortBy" value={filters.sortBy} onChange={handleChange}>
             <option value="points">Popularity</option>
             <option value="date">Date</option>
           </select>
-          <span>for</span>
+          <span className="searchPageContent__filtersFields">for</span>
           <select name="dateRange" value={filters.dateRange} onChange={handleChange}>
             <option value="all">All time</option>
             <option value="last24h">Last 24h</option>
@@ -98,7 +98,7 @@ function SearchPageContent({ filters, setFilters }) {
           </select>
         </div>
         <div className="searchPageContent__filtersRight">
-          <span>
+          <span className="searchPageContent__filtersFields">
             {numArticles}
             {' '}
             results (
@@ -113,11 +113,11 @@ function SearchPageContent({ filters, setFilters }) {
         {posts.map((post, i) => {
           if (post.parent_id === null) {
             return (
-              <SearchPageStoryRow post={post} key={i} />
+              <SearchPageStoryRow post={post} query={filters.query} key={i} />
             );
           }
           return (
-            <SearchPageCommentRow post={post} key={i} />
+            <SearchPageCommentRow post={post} query={filters.query} key={i} />
           );
         })}
       </div>
